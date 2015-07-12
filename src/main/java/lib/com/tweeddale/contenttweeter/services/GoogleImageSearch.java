@@ -1,0 +1,58 @@
+package com.tweeddale.contenttweeter.services;
+
+import java.net.*;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.json.*;
+import org.springframework.stereotype.Service;
+
+/**
+ * Created by James on 7/3/2015.
+ */
+@Service
+public class GoogleImageSearch implements ImageSearchService {
+
+    private final String searchUrlStr = "https://ajax.googleapis.com/ajax/services/search/images?v=1.0&q=";
+
+    public GoogleImageSearch(){
+    }
+
+    public List<String> search(String searchStr) {
+        StringBuilder builder = new StringBuilder();
+
+        try {
+            URL url = new URL(this.searchUrlStr + URLEncoder.encode(searchStr.trim(), "UTF-8"));
+
+            URLConnection connection = url.openConnection();
+
+            String line;
+            BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            while ((line = reader.readLine()) != null) {
+                builder.append(line);
+            }
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+        return parseOutResultImageUrls(builder.toString());
+    }
+
+    private List<String> parseOutResultImageUrls(String json){
+
+        ArrayList resultsList = new ArrayList();
+
+        JSONArray jsonResultsArr = new JSONObject(json).getJSONObject("responseData").getJSONArray("results");
+
+        for(int i =0; i < jsonResultsArr.length(); i++) {
+            JSONObject result = jsonResultsArr.getJSONObject(i);
+            String imageUrl = result.getString("url");
+            resultsList.add(imageUrl);
+        }
+
+        return resultsList;
+    }
+
+}

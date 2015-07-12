@@ -1,0 +1,6 @@
+*/resources/appConfig.xml
+./target/*
+./target
+./src/test
+./src/test/*
+*.iml
