@@ -1,0 +1,18 @@
+<config>
+
+    <downloads-dir>C:\tweetpony\fetchedImages</downloads-dir>
+    <num-words>3</num-words>
+
+    <services>
+        <wordnik>
+            <api-key><!--Your Wordnik Key Here--></api-key>
+        </wordnik>
+
+        <twitter>
+            <access-token><!-- token keye here --></access-token>
+            <token-secret><!--token secret here --></token-secret>
+            <consumer-secret><!-- consumer secret here --></consumer-secret>
+            <consumer-key><!--  consumer key here--></consumer-key>
+        </twitter>
+    </services>
+</config>
