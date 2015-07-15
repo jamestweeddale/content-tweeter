@@ -1,7 +1,6 @@
 package com.tweeddale.contenttweeter.services;
 
 import com.tweeddale.contenttweeter.util.ConfigWrapper;
-import org.apache.commons.configuration.XMLConfiguration;
 import twitter4j.*;
 import twitter4j.auth.*;
 import org.springframework.stereotype.Service;

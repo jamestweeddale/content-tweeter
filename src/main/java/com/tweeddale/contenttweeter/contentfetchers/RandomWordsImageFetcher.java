@@ -10,7 +10,6 @@ import com.tweeddale.contenttweeter.services.DictionaryService;
 import com.tweeddale.contenttweeter.services.ImageSearchService;
 import com.tweeddale.contenttweeter.util.ConfigWrapper;
 import com.tweeddale.contenttweeter.util.RemoteFileGrabber;
-import org.apache.commons.configuration.XMLConfiguration;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +18,10 @@ import twitter4j.*;
 
 /**
  * Created by James on 7/4/2015.
+ *
+ * Uses injected dictionary and imageSearch service to fetch random words and query for a related image. The first accessible
+ * related image is downloaded and attached to a StatusMessage along with the random words.
+ *
  */
 @Service
 public class RandomWordsImageFetcher implements ContentFetcher {
@@ -63,6 +66,12 @@ public class RandomWordsImageFetcher implements ContentFetcher {
     }
 
 
+    /**
+     * Fetches random words and word of the day if applicable. Queries for and downloads related image then attaches it to
+     * status update.
+     *
+     * @return  StatusUpdate composed of three random words with an attached related image ready for tweeting
+     */
     public StatusUpdate getTweetableStatus() {
 
         String wordOfTheDay = "";
@@ -109,6 +118,12 @@ public class RandomWordsImageFetcher implements ContentFetcher {
     }
 
 
+    /**
+     * Fetches the set number of random words using the dictionary service. If word of the day is activated then it
+     * substitutes it for one of the random words. Stores all fetched words in a space-separated string.
+     *
+     * @return String containing words fetched from dictionary service, space-separated
+     */
     private String fetchRandomWords(){
         String wordString = "";
         int numWordsToFetch = this.numWords;

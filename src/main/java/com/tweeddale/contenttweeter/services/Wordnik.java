@@ -1,7 +1,6 @@
 package com.tweeddale.contenttweeter.services;
 
 import com.tweeddale.contenttweeter.util.ConfigWrapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -9,8 +8,6 @@ import java.util.List;
 
 import net.jeremybrooks.knicker.*;
 import net.jeremybrooks.knicker.dto.*;
-
-import org.apache.commons.configuration.*;
 
 /**
  * Created by James on 7/3/2015.
