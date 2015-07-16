@@ -11,49 +11,29 @@ import java.nio.channels.*;
 
 /**
  * Created by James on 7/5/2015.
+ *
+ *Downloads files from URL objects into a local directory specified in application configuration
  */
 @Component
 public class RemoteFileGrabber {
 
     private static final Logger logger = LogManager.getLogger(RemoteFileGrabber.class);
 
-    String localFileDestDir;
-    URL remoteFileUrl;
-
-    public RemoteFileGrabber() {
-    }
-
-    public RemoteFileGrabber(URL remoteFileUrl) {
-        this();
-        this.remoteFileUrl = remoteFileUrl;
-
-    }
-
-
-    public String getLocalFileDestDir() {
-        return localFileDestDir;
-    }
-
-    public void setLocalFileDestDir(String localFileDestDir) {
-        this.localFileDestDir = localFileDestDir;
-    }
-
-    public URL getRemoteFileUrl() {
-        return remoteFileUrl;
-    }
-
-    public void setRemoteFileUrl(URL remoteFileUrl) {
-        this.remoteFileUrl = remoteFileUrl;
-    }
-
-
-    public File getFile(){
+    /**
+     * Given a URL to a remote file, attempts to download it via HTTP and store in the local downloads-dir identified
+     * in the appConfig.xml file. If remote file is inaccessible (404 status) a log message is generated and a null
+     * file is returned.
+     *
+     * @param remoteFileUrl URL of remote file to download
+     * @return File handle to newley created/downloaded file. NUll if file was innaccessible or failed to download
+     */
+    public static File getFile(URL remoteFileUrl){
         File newLocalFile = null;
         logger.debug("APP CONFIG: " + ConfigWrapper.getConfig().getString("downloads-dir"));
         try {
 
             //check to see if remote file is accessible
-            HttpURLConnection connection = (HttpURLConnection)this.remoteFileUrl.openConnection();
+            HttpURLConnection connection = (HttpURLConnection)remoteFileUrl.openConnection();
             connection.setRequestMethod("GET");
             connection.connect();
 
@@ -61,7 +41,7 @@ public class RemoteFileGrabber {
             logger.debug("response code for imag "+ code);
             if(code != 404) {
 
-                ReadableByteChannel rbc = Channels.newChannel(this.remoteFileUrl.openStream());
+                ReadableByteChannel rbc = Channels.newChannel(remoteFileUrl.openStream());
 
                 String remoteUrl = remoteFileUrl.toString();
 
@@ -73,7 +53,7 @@ public class RemoteFileGrabber {
                 FileOutputStream fos = new FileOutputStream(newLocalFile);
                 fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
             }else{
-                logger.debug(" IMage "+ this.remoteFileUrl + " is not acessible (404)");
+                logger.debug(" IMage "+ remoteFileUrl + " is not acessible (404)");
             }
 
         }catch(Exception e){

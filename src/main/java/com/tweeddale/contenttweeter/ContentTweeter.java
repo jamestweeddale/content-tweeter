@@ -1,5 +1,14 @@
-package com.tweeddale.contenttweeter; /**
+package com.tweeddale.contenttweeter;
+/**
  * Created by James on 7/3/2015.
+ *
+ * A ContentTweeter has everything it needs to generate tweets. It has a contentFetcher to provide tweetable content
+ * and a TweetService to post a status update to twitter.
+ *
+ * This class is where everything gets wired together by Spring so that a TweetService can use a contentGenerator to tweet
+ * status updates.
+ *
+ * A ContentTweeter object is injected with a TweetService.
  */
 
 import com.tweeddale.contenttweeter.services.ContentFetcher;
@@ -20,10 +29,10 @@ public class ContentTweeter{
     public void setTweetService(TweetService tweetService) {
         this.tweetService = tweetService;
     }
-    public void setContentFetcher(ContentFetcher contentFetcher) {
-        this.contentFetcher = contentFetcher;
-    }
 
+    /**
+     * Post a status update to twitter using content generated/fetched by the contentFetcher
+     */
     public void tweet(){
         StatusUpdate tweetableStatus = contentFetcher.getTweetableStatus();
         logger.debug("Tweeting: "+ tweetableStatus);

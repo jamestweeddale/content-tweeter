@@ -95,12 +95,11 @@ public class RandomWordsImageFetcher implements ContentFetcher {
             }
 
             //try to download images until one works
-            remoteFileGrabber.setRemoteFileUrl(new URL(imgUrls.get(0)));
-            File newFile = remoteFileGrabber.getFile();
+            File newFile = remoteFileGrabber.getFile(new URL(imgUrls.get(0)));
 
             int i = 1;
             while(i < imgUrls.size() && newFile == null){
-                newFile = remoteFileGrabber.getFile();
+                newFile = remoteFileGrabber.getFile(new URL(imgUrls.get(i)));
                 i++;
             }
 

@@ -5,9 +5,11 @@ import org.apache.commons.configuration.XMLConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
 /**
  * Created by James on 7/11/2015.
+ *
+ * A singleton wrapper around an Apache commons configuration object. Allows any object in the application to obtain
+ * configuration information from the application confif xml file.
  */
 public class ConfigWrapper {
 

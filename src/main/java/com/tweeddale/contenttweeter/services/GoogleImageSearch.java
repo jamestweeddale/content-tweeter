@@ -11,8 +11,7 @@ import org.springframework.stereotype.Service;
 /**
  * Created by James on 7/3/2015.
  *
- * TRhis implementation of ImageSearchService queries Google Image Search via an HTTP request. Results are returned in
- * a JSON object which is parsed to store only the image URLS in a List.
+ * This implementation of ImageSearchService queries Google Image Search via an HTTP request.
  */
 @Service
 public class GoogleImageSearch implements ImageSearchService {
@@ -20,6 +19,8 @@ public class GoogleImageSearch implements ImageSearchService {
     private final String searchUrlStr = "https://ajax.googleapis.com/ajax/services/search/images?v=1.0&q=";
 
     /**
+     * Performs a request to Google Image search using the passed-in search string. Results are returned from the service
+     * in a JSON object which is parsed to store only the image URLS in a List.
      *
      * @param searchStr   The search string used to query for a related image
      * @return a List of URL strings, each pointing to a related image result from the Googkle image search
