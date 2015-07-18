@@ -1,6 +1,6 @@
-package com.tweeddale.contenttweeter.services;
+package com.tweeddale.jtweeter.services;
 
-import com.tweeddale.contenttweeter.util.ConfigWrapper;
+import com.tweeddale.jtweeter.util.ConfigWrapper;
 import java.util.ArrayList;
 import java.util.List;
 import net.jeremybrooks.knicker.*;

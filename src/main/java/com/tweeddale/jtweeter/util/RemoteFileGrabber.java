@@ -1,4 +1,4 @@
-package com.tweeddale.contenttweeter.util;
+package com.tweeddale.jtweeter.util;
 
 
 import org.apache.logging.log4j.LogManager;
@@ -36,8 +36,8 @@ public class RemoteFileGrabber {
             connection.connect();
 
             int code = connection.getResponseCode();
-            logger.debug("response code for imag "+ code);
-            if(code != 404) {
+            logger.debug("response code for image "+ code);
+            if(code == 200) {  //if HTTP status code for download was success
 
                 ReadableByteChannel rbc = Channels.newChannel(remoteFileUrl.openStream());
 
@@ -45,13 +45,13 @@ public class RemoteFileGrabber {
 
                 //get name of new file
                 String newFileName = remoteUrl.substring(remoteUrl.lastIndexOf('/') + 1, remoteUrl.length());
-                newLocalFile = new File(ConfigWrapper.getConfig().getString("downloads-dir") + "/" + newFileName);
+                newLocalFile = new File(ConfigWrapper.getConfig().getString("downloads-dir") + File.separator + newFileName);
 
                 logger.debug("About to download " + remoteUrl + " to " + newLocalFile);
                 FileOutputStream fos = new FileOutputStream(newLocalFile);
                 fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
             }else{
-                logger.debug(" IMage "+ remoteFileUrl + " is not acessible (404)");
+                logger.debug(" Image "+ remoteFileUrl + " is not accessible (404)");
             }
 
         }catch(Exception e){

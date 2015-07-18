@@ -1,13 +1,12 @@
-package com.tweeddale.contenttweeter.contentstrategy;
+package com.tweeddale.jtweeter.contentstrategy;
 
 import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import com.tweeddale.contenttweeter.services.*;
-import com.tweeddale.contenttweeter.util.*;
+import com.tweeddale.jtweeter.services.*;
+import com.tweeddale.jtweeter.util.*;
 import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import twitter4j.*;
 
 /**
@@ -93,7 +92,7 @@ public class RandomWordsImageStrategy implements ContentFetchStrategy {
             File newFile = remoteFileGrabber.getFile(new URL(imgUrls.get(0)));
 
             int i = 1;
-            while(i < imgUrls.size() && newFile == null){
+            while(newFile == null && i < imgUrls.size()){
                 newFile = remoteFileGrabber.getFile(new URL(imgUrls.get(i)));
                 i++;
             }
@@ -125,14 +124,13 @@ public class RandomWordsImageStrategy implements ContentFetchStrategy {
         if(this.numWords == 0)
             numWordsToFetch = ConfigWrapper.getConfig().getInt("num-words");
 
-
         if(this.useWordOfTheDay)  numWordsToFetch--;
 
         try {
             List<String> words = dictionaryService.getRandomWords(numWordsToFetch);
 
             for (String word : words) {
-                wordString += " " + word;
+                wordString += word + " ";
             }
 
             wordString = wordString.trim();

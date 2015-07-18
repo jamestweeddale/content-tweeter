@@ -1,4 +1,4 @@
-package com.tweeddale.contenttweeter.services;
+package com.tweeddale.jtweeter.services;
 import twitter4j.StatusUpdate;
 
 /**

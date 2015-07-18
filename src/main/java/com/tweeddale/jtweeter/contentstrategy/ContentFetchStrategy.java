@@ -1,5 +1,4 @@
-package com.tweeddale.contenttweeter.contentstrategy;
-import org.apache.logging.log4j.*;
+package com.tweeddale.jtweeter.contentstrategy;
 import twitter4j.*;
 
 /**

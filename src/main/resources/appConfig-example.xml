@@ -5,11 +5,11 @@
 
     <services>
         <wordnik>
-            <api-key><!--Your Wordnik Key Here--></api-key>
+            <api-key><!--Wordnik Key Here--></api-key>
         </wordnik>
 
         <twitter>
-            <access-token><!-- token keye here --></access-token>
+            <access-token><!-- token key here --></access-token>
             <token-secret><!--token secret here --></token-secret>
             <consumer-secret><!-- consumer secret here --></consumer-secret>
             <consumer-key><!--  consumer key here--></consumer-key>

@@ -1,4 +1,4 @@
-package com.tweeddale.contenttweeter;
+package com.tweeddale.jtweeter;
 /**
  * Created by James on 7/3/2015.
  *
@@ -9,8 +9,8 @@ package com.tweeddale.contenttweeter;
  * fetching content could be easily integrated and even swapped at runtime.
  */
 
-import com.tweeddale.contenttweeter.contentstrategy.ContentFetchStrategy;
-import com.tweeddale.contenttweeter.services.TweetService;
+import com.tweeddale.jtweeter.contentstrategy.ContentFetchStrategy;
+import com.tweeddale.jtweeter.services.TweetService;
 import org.apache.logging.log4j.*;
 
 import twitter4j.StatusUpdate;
@@ -37,7 +37,8 @@ public class ContentTweeter{
         StatusUpdate tweetableStatus = contentFetchStrategy.getTweetableStatus();
         tweetService.send(tweetableStatus);
 
-        logger.debug("Tweeted: "+ tweetableStatus);
+        logger.debug("Tweeted: " + tweetableStatus);
+        System.out.println("Just tweeted: "+ tweetableStatus.getStatus());
     }
 
 
