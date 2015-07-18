@@ -5,4 +5,4 @@ This implementation of ContentTweeter tweets random words and related images at 
 dictionary API as a source of random words, Google Image Search as a source of related images, and the Twitter4J API
 to interface with Twitter.
 
-An implementation of this project is currently running, tweeting to Twitter as @RandomTweetPony every hour.
+An implementation of this project is currently running, tweeting to Twitter as <a href="https://twitter.com/RandomTweetPony" target="_BLANK">@RandomTweetPony</a> every hour.
