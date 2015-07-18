@@ -6,22 +6,24 @@ import org.quartz.impl.StdSchedulerFactory;
 /**
  * Created by James on 7/17/2015.
  */
-public class SchedulableContentTweeter extends ContentTweeter implements Job {
+public class ContentTweeterScheduler {
 
+    private ContentTweeter contentTweeter;
     private Scheduler scheduler;
     private JobDetail job;
     private Trigger trigger;
 
-    public SchedulableContentTweeter(String triggerName, String jobName, String groupName, int interval) {
-        super();
+    public ContentTweeterScheduler(ContentTweeter contentTweeter, String triggerName, String jobName, String groupName, int interval) {
 
         try {
-            scheduler = new StdSchedulerFactory().getScheduler();
+            this.contentTweeter = contentTweeter;
 
-            job = JobBuilder.newJob(SchedulableContentTweeter.class)
+            this.scheduler = new StdSchedulerFactory().getScheduler();
+
+            this.job = JobBuilder.newJob(ContentTweeter.class)
                     .withIdentity(jobName, groupName).build();
 
-            Trigger trigger = TriggerBuilder
+            this.trigger = TriggerBuilder
                     .newTrigger()
                     .withIdentity(triggerName, groupName)
                     .withSchedule(
@@ -48,13 +50,4 @@ public class SchedulableContentTweeter extends ContentTweeter implements Job {
 
     }
 
-    /**
-     * Required by Quartz Job interface. Executed when quartz job fires on objects of this class
-     *
-     * @param jobExecutionContext
-     * @throws JobExecutionException
-     */
-    public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
-        tweet();
-    }
 }

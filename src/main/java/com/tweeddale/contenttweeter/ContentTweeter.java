@@ -12,9 +12,12 @@ package com.tweeddale.contenttweeter;
 import com.tweeddale.contenttweeter.contentstrategy.ContentFetchStrategy;
 import com.tweeddale.contenttweeter.services.TweetService;
 import org.apache.logging.log4j.*;
+import org.quartz.Job;
+import org.quartz.JobExecutionContext;
+import org.quartz.JobExecutionException;
 import twitter4j.StatusUpdate;
 
-public abstract class ContentTweeter{
+public class ContentTweeter implements Job{
 
     protected static final Logger logger = LogManager.getLogger(ContentTweeter.class);
 
@@ -37,4 +40,13 @@ public abstract class ContentTweeter{
         tweetService.send(tweetableStatus);
     }
 
+    /**
+     * Required by Quartz Job interface. Executed when quartz job fires on objects of this class
+     *
+     * @param jobExecutionContext
+     * @throws JobExecutionException
+     */
+    public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
+        tweet();
+    }
 }
