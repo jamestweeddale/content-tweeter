@@ -6,3 +6,5 @@ dictionary API as a source of random words, Google Image Search as a source of r
 to interface with Twitter.
 
 An implementation of this project is currently running, tweeting to Twitter as <a href="https://twitter.com/RandomTweetPony" target="_BLANK">@RandomTweetPony</a> every hour.
+
+Project and all dependencies are compiled into a single jar file using Maven.
