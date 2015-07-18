@@ -1,32 +1,44 @@
 import com.tweeddale.contenttweeter.ContentTweeter;
-import com.tweeddale.contenttweeter.ContentTweeterScheduler;
+import com.tweeddale.contenttweeter.ContentTweeterRunner;
 import com.tweeddale.contenttweeter.contentstrategy.RandomWordsImageStrategy;
-import com.tweeddale.contenttweeter.services.GoogleImageSearch;
-import com.tweeddale.contenttweeter.services.TwitterClient;
-import com.tweeddale.contenttweeter.services.Wordnik;
+import com.tweeddale.contenttweeter.services.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Created by James on 7/4/2015.
  */
 public class TweetPony {
 
-    public static void main(String[] args){
+    private static final Logger logger = LogManager.getLogger(TweetPony.class);
 
-        //TO DO: strip out Quartz and repalce with timed thread
+    public static void main(String[] args) {
 
-        //choose and create a content fetching strategy
-        RandomWordsImageStrategy contentStrategy = new RandomWordsImageStrategy(3);
-        contentStrategy.setDictionaryService(new Wordnik());
-        contentStrategy.setImageSearchService(new GoogleImageSearch());
+        try {
+            int secondsBetweenTweets = 10000; //default tweet time is every two hours
 
-        //setup a ContentTweeter with the content strategy and tweet!
-        ContentTweeter contentTweeter = new ContentTweeter();
-        contentTweeter.setTweetService(new TwitterClient());
-        contentTweeter.setContentFetchStrategy(contentStrategy);
-        contentTweeter.tweet();
+            if (args.length > 0) {
+                secondsBetweenTweets = Integer.parseInt(args[0]);
+            }
 
-        ContentTweeterScheduler scheduler = new ContentTweeterScheduler(contentTweeter, "myTrigger", "myJob", "myGroup", 10000);
-        scheduler.start();
+            //choose and create a content fetching strategy
+            RandomWordsImageStrategy contentStrategy = new RandomWordsImageStrategy(3);
+            contentStrategy.setDictionaryService(new Wordnik());
+            contentStrategy.setImageSearchService(new GoogleImageSearch());
 
+            //setup a ContentTweeter with the content strategy and tweet!
+            ContentTweeter contentTweeter = new ContentTweeter();
+            contentTweeter.setTweetService(new TwitterClient());
+            contentTweeter.setContentFetchStrategy(contentStrategy);
+
+            //kick the tweet process off on its own thread to tweet at the desired interval
+            new Thread(new ContentTweeterRunner(contentTweeter, secondsBetweenTweets)).start();
+
+            System.out.println("ContentTweeter started");
+
+        }catch(Exception e){
+            e.printStackTrace();
+            logger.debug("Exception in main program");
+        }
     }
 }

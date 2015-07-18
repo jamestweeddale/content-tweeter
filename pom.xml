@@ -43,7 +43,6 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <springframework.version>4.0.6.RELEASE</springframework.version>
-        <quartz.version>2.2.1</quartz.version>
     </properties>
 
     <repositories>
@@ -74,14 +73,6 @@
             <artifactId>knicker</artifactId>
             <version>2.4.1</version>
         </dependency>
-
-        <!-- Quartz framework -->
-        <dependency>
-            <groupId>org.quartz-scheduler</groupId>
-            <artifactId>quartz</artifactId>
-            <version>${quartz.version}</version>
-        </dependency>
-
 
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
