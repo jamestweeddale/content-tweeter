@@ -24,6 +24,7 @@ public class Run {
             int secondsBetweenTweets = 7200; //default tweet time is every two hours
 
             if (args.length > 0) {
+                //get user inputted tweet interval (if exists)
                 secondsBetweenTweets = Integer.parseInt(args[0]);
             }
 
