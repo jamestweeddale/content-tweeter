@@ -5,6 +5,7 @@
     <num-words>3</num-words>
 
     <services>
+        <!-- Wordnik API key can be obtained from http://developer.wordnik.com -->
         <wordnik>
             <api-key><!--Wordnik Key Here--></api-key>
         </wordnik>
