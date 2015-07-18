@@ -1,4 +1,5 @@
 import com.tweeddale.contenttweeter.ContentTweeter;
+import com.tweeddale.contenttweeter.SchedulableContentTweeter;
 import com.tweeddale.contenttweeter.contentstrategy.ContentFetchStrategy;
 import com.tweeddale.contenttweeter.contentstrategy.RandomWordsImageStrategy;
 import com.tweeddale.contenttweeter.services.GoogleImageSearch;
@@ -19,7 +20,7 @@ public class TweetPony {
         contentStrategy.setImageSearchService(new GoogleImageSearch());
 
         //setup a ContentTweeter with the content strategy and tweet!
-        ContentTweeter contentTweeter = new ContentTweeter();
+        ContentTweeter contentTweeter = new SchedulableContentTweeter("trigger","job","group",3600000);
         contentTweeter.setTweetService(new TwitterClient());
         contentTweeter.setContentFetchStrategy(contentStrategy);
         contentTweeter.tweet();

@@ -6,7 +6,7 @@ package com.tweeddale.contenttweeter;
  * and a TweetService to post a status update to twitter.
  *
  * Strategy pattern is used to encapsulate and decouple content fetching strategy so that many other strategies for
- * fetching content could be easily inytegrated and even swapped at runtime.
+ * fetching content could be easily integrated and even swapped at runtime.
  */
 
 import com.tweeddale.contenttweeter.contentstrategy.ContentFetchStrategy;
@@ -14,7 +14,7 @@ import com.tweeddale.contenttweeter.services.TweetService;
 import org.apache.logging.log4j.*;
 import twitter4j.StatusUpdate;
 
-public class ContentTweeter{
+public abstract class ContentTweeter{
 
     protected static final Logger logger = LogManager.getLogger(ContentTweeter.class);
 
