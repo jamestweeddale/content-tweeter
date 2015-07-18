@@ -10,6 +10,7 @@
             <api-key><!--Wordnik Key Here--></api-key>
         </wordnik>
 
+        <!-- Twitter OAUTH tokens obtainable by setting up Twitter App developer account at https://apps.twitter.com/-->
         <twitter>
             <access-token><!-- token key here --></access-token>
             <token-secret><!--token secret here --></token-secret>
