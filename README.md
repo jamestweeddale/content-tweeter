@@ -9,4 +9,4 @@ An implementation of this project is currently running, tweeting to Twitter as <
 
 Project and all dependencies are compiled into a single jar file using Maven.
 
-Sample configuration file inluding some information for running an instance of the project is located in main/resources/appConfig-example.xml
+Sample configuration file inluding some information for running an instance of the project is located in main/resources/sample-jtweeter-config.xml
