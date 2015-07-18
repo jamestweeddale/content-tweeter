@@ -1,5 +1,5 @@
 # tweeter
-Integrates a collection of services and APIs (ContentFetchers) in a loosely coupled manner to use as sources of content for 
+Integrates a collection of services and APIs in a loosely coupled manner to use as sources of content for 
 tweets. Flexible design of the ContentTweeter and ContentFetchStrategy subclasses allow new services and ContentFetchers to 
 be added, even at runtime, to provide new sources of tweet content.
 
