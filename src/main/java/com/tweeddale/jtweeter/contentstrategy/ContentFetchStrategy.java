@@ -10,7 +10,7 @@ import twitter4j.*;
 public interface ContentFetchStrategy {
 
     //** TO DO, genericize/wrap StatusUpdate so that Twitter4j is not directly included
-    public abstract StatusUpdate getTweetableStatus();
+    public StatusUpdate getTweetableStatus();
 
 
 }
