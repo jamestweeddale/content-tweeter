@@ -39,7 +39,7 @@ public class Run {
 
             //kick the tweet process off on its own thread to tweet at the desired interval
             Thread tweetThread = new Thread(new ContentTweeterRunner(contentTweeter, secondsBetweenTweets));
-            tweetThread.setDaemon(true);
+            tweetThread.setDaemon(true);  //start as daemon thread so that it stops when main terminates
             tweetThread.start();
 
             System.out.println("ContentTweeter started!");
@@ -54,7 +54,7 @@ public class Run {
                 }
             }
 
-            System.out.println("Program terminated. Thank you for using jtweeter.");
+            System.out.println("Tweeter terminated.");
 
         } catch (Exception e) {
             e.printStackTrace();
