@@ -1,4 +1,5 @@
-package com.tweeddale.contenttweeter.services;
+package com.tweeddale.contenttweeter.contentstrategy;
+import org.apache.logging.log4j.*;
 import twitter4j.*;
 
 /**
@@ -7,9 +8,10 @@ import twitter4j.*;
  * Content fetchers collect content from one or more sources and use it to create a StatusUpdate for tweeting. ContentFetchers
  * are what ContentTweeters use to build tweetable messages. ContentFetchers must simply implement in getTweetableStatus method
  */
-public interface ContentFetcher {
+public interface ContentFetchStrategy {
 
     //** TO DO, genericize/wrap StatusUpdate so that Twitter4j is not directly included
-    public StatusUpdate getTweetableStatus();
+    public abstract StatusUpdate getTweetableStatus();
+
 
 }

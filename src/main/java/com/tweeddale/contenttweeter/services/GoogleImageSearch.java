@@ -6,14 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.json.*;
-import org.springframework.stereotype.Service;
 
 /**
  * Created by James on 7/3/2015.
  *
  * This implementation of ImageSearchService queries Google Image Search via an HTTP request.
  */
-@Service
 public class GoogleImageSearch implements ImageSearchService {
 
     private final String searchUrlStr = "https://ajax.googleapis.com/ajax/services/search/images?v=1.0&q=";

@@ -1,19 +1,13 @@
-package com.tweeddale.contenttweeter.contentfetchers;
+package com.tweeddale.contenttweeter.contentstrategy;
 
 import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.tweeddale.contenttweeter.services.ContentFetcher;
-import com.tweeddale.contenttweeter.services.DictionaryService;
-import com.tweeddale.contenttweeter.services.ImageSearchService;
-import com.tweeddale.contenttweeter.util.ConfigWrapper;
-import com.tweeddale.contenttweeter.util.RemoteFileGrabber;
+import com.tweeddale.contenttweeter.services.*;
+import com.tweeddale.contenttweeter.util.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import twitter4j.*;
 
 /**
@@ -23,21 +17,22 @@ import twitter4j.*;
  * related image is downloaded and attached to a StatusMessage along with the random words.
  *
  */
-@Service
-public class RandomWordsImageFetcher implements ContentFetcher {
+public class RandomWordsImageStrategy implements ContentFetchStrategy {
 
-    private static final Logger logger = LogManager.getLogger(RandomWordsImageFetcher.class);
+    protected static final org.apache.logging.log4j.Logger logger = LogManager.getLogger(RandomWordsImageStrategy.class);
 
-    @Autowired RemoteFileGrabber remoteFileGrabber;
-    @Autowired private DictionaryService dictionaryService;
-    @Autowired private ImageSearchService imageSearchService;
+    RemoteFileGrabber remoteFileGrabber;
+    private DictionaryService dictionaryService;
+    private ImageSearchService imageSearchService;
     private int numWords = 0;
     private boolean useWordOfTheDay = false;
 
-    public RandomWordsImageFetcher(){
+    public RandomWordsImageStrategy(){
+        remoteFileGrabber = new RemoteFileGrabber();  //setup file grabber
     }
 
-    public RandomWordsImageFetcher(int numWords){
+    public RandomWordsImageStrategy(int numWords){
+        this();
         this.numWords = numWords;
     }
 

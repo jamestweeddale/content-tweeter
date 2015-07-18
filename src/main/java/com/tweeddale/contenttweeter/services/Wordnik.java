@@ -1,11 +1,8 @@
 package com.tweeddale.contenttweeter.services;
 
 import com.tweeddale.contenttweeter.util.ConfigWrapper;
-import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import net.jeremybrooks.knicker.*;
 import net.jeremybrooks.knicker.dto.*;
 
@@ -14,7 +11,6 @@ import net.jeremybrooks.knicker.dto.*;
  *
  * This implementation of DictionaryServices uses the Knicker API to fetch words from the Wordnik online dictionary.
  */
-@Service
 public class Wordnik implements DictionaryService {
 
     private TokenStatus tokenStatus;
@@ -23,14 +19,21 @@ public class Wordnik implements DictionaryService {
      * Upon object creation, load the Wordnik API authentication token from application config
      * @throws Exception
      */
-    public Wordnik() throws Exception{
+    public Wordnik(){
 
-            String wordnikApiKey = ConfigWrapper.getConfig().getString("services.wordnik.api-key");
-            System.setProperty("WORDNIK_API_KEY", wordnikApiKey);
-            this.tokenStatus = AccountApi.apiTokenStatus();
+            try {
+                String wordnikApiKey = ConfigWrapper.getConfig().getString("services.wordnik.api-key");
+                System.setProperty("WORDNIK_API_KEY", wordnikApiKey);
+                this.tokenStatus = AccountApi.apiTokenStatus();
 
-            if (!this.tokenStatus.isValid()) {
-                throw new Error("Wordnik token has expired.");
+                if (!this.tokenStatus.isValid()) {
+                    throw new Error("Wordnik token has expired.");
+                }
+
+            }catch(KnickerException e){
+                //if we can't connect to the dictionary we are dead in the water
+                e.printStackTrace();
+                throw new Error("Failed connecting to dictionary service. Execution terminated.");
             }
     }
 
