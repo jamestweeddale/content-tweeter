@@ -17,7 +17,7 @@ import twitter4j.StatusUpdate;
 
 public class ContentTweeter{
 
-    protected static final Logger logger = LogManager.getLogger(ContentTweeter.class);
+    private static final Logger logger = LogManager.getLogger(ContentTweeter.class);
 
     protected TweetService tweetService;
     protected ContentFetchStrategy contentFetchStrategy;

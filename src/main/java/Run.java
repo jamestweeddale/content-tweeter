@@ -1,5 +1,7 @@
 import com.tweeddale.jtweeter.ContentTweeter;
 import com.tweeddale.jtweeter.ContentTweeterRunner;
+import com.tweeddale.jtweeter.contentstrategy.ContentFetchStrategy;
+import com.tweeddale.jtweeter.contentstrategy.FortuneStrategy;
 import com.tweeddale.jtweeter.contentstrategy.RandomWordsImageStrategy;
 import com.tweeddale.jtweeter.services.*;
 import org.apache.logging.log4j.LogManager;
@@ -22,16 +24,29 @@ public class Run {
 
         try {
             int secondsBetweenTweets = 7200; //default tweet time is every two hours
+            String strategy = "";
 
             if (args.length > 0) {
                 //get user inputted tweet interval (if exists)
                 secondsBetweenTweets = Integer.parseInt(args[0]);
+
+                if(args.length > 1){
+                    strategy = args[1];
+                }
             }
 
+
             //choose and create a content fetching strategy
-            RandomWordsImageStrategy contentStrategy = new RandomWordsImageStrategy(3);
-            contentStrategy.setDictionaryService(new Wordnik());
-            contentStrategy.setImageSearchService(new GoogleImageSearch());
+            ContentFetchStrategy contentStrategy;
+            if(strategy.equalsIgnoreCase("fortune")){
+                contentStrategy = new FortuneStrategy();
+
+            }else {
+                RandomWordsImageStrategy tempStrategy = new RandomWordsImageStrategy(3);
+                tempStrategy.setDictionaryService(new Wordnik());
+                tempStrategy.setImageSearchService(new GoogleImageSearch());
+                contentStrategy = (ContentFetchStrategy) tempStrategy;
+            }
 
             //setup a ContentTweeter with the content strategy and tweet!
             ContentTweeter contentTweeter = new ContentTweeter();
@@ -43,7 +58,7 @@ public class Run {
             tweetThread.setDaemon(true);  //start as daemon thread so that it stops when main terminates
             tweetThread.start();
 
-            System.out.println("ContentTweeter started!");
+            System.out.println("ContentTweeter started! Using strategy: "+ strategy);
             System.out.println("Enter 'quit' to stop tweeting and terminate program: ");
 
             //continue to execute until user enters 'quit'
