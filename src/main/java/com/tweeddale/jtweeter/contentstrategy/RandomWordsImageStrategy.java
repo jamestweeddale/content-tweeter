@@ -20,14 +20,21 @@ public class RandomWordsImageStrategy implements ContentFetchStrategy {
 
     protected static final org.apache.logging.log4j.Logger logger = LogManager.getLogger(RandomWordsImageStrategy.class);
 
-    RemoteFileGrabber remoteFileGrabber;
     private DictionaryService dictionaryService;
     private ImageSearchService imageSearchService;
+
+    public RandomWordsImageStrategy(DictionaryService dictionaryService, ImageSearchService imageSearchService, int numWords, boolean useWordOfTheDay) {
+        this.dictionaryService = dictionaryService;
+        this.imageSearchService = imageSearchService;
+        this.numWords = numWords;
+        this.useWordOfTheDay = useWordOfTheDay;
+    }
+
     private int numWords = 0;
     private boolean useWordOfTheDay = false;
 
+    //begin constructors
     public RandomWordsImageStrategy(){
-        remoteFileGrabber = new RemoteFileGrabber();  //setup file grabber
     }
 
     public RandomWordsImageStrategy(int numWords){
@@ -35,6 +42,7 @@ public class RandomWordsImageStrategy implements ContentFetchStrategy {
         this.numWords = numWords;
     }
 
+    //begin getters and setters
     public void setNumWords(int numWords) {
         this.numWords = numWords;
     }
@@ -72,6 +80,7 @@ public class RandomWordsImageStrategy implements ContentFetchStrategy {
         String randomWords = "";
         String tweetableString = "";
         StatusUpdate status = null;
+        RemoteFileGrabber remoteFileGrabber= new RemoteFileGrabber();
 
         try {
 
