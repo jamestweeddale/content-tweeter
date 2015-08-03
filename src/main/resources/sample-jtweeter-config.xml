@@ -1,5 +1,5 @@
 <config>
-    <!-- The jtweeter-config.xml file should be located at the path:  /var/opt/jtweeter/jtweeter-config.xml-->
+    <!-- The tweeter-config.xml file should be located at the path:  /var/opt/tweeter/tweeter-config.xml-->
 
     <downloads-dir>C:\tweetpony\fetchedImages</downloads-dir>
     <num-words>3</num-words>

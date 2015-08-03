@@ -1,4 +1,4 @@
-package com.tweeddale.jtweeter.services;
+package com.tweeddale.tweeter.services;
 
 import java.net.*;
 import java.io.*;

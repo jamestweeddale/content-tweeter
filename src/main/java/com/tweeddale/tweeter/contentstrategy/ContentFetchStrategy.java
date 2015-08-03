@@ -1,4 +1,4 @@
-package com.tweeddale.jtweeter.contentstrategy;
+package com.tweeddale.tweeter.contentstrategy;
 import twitter4j.*;
 
 /**

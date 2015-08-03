@@ -1,4 +1,4 @@
-package com.tweeddale.jtweeter.contentstrategy;
+package com.tweeddale.tweeter.contentstrategy;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

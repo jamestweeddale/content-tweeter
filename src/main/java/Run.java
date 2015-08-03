@@ -1,9 +1,9 @@
-import com.tweeddale.jtweeter.ContentTweeter;
-import com.tweeddale.jtweeter.ContentTweeterRunner;
-import com.tweeddale.jtweeter.contentstrategy.ContentFetchStrategy;
-import com.tweeddale.jtweeter.contentstrategy.FortuneStrategy;
-import com.tweeddale.jtweeter.contentstrategy.RandomWordsImageStrategy;
-import com.tweeddale.jtweeter.services.*;
+import com.tweeddale.tweeter.ContentTweeter;
+import com.tweeddale.tweeter.ContentTweeterRunner;
+import com.tweeddale.tweeter.contentstrategy.ContentFetchStrategy;
+import com.tweeddale.tweeter.contentstrategy.FortuneStrategy;
+import com.tweeddale.tweeter.contentstrategy.RandomWordsImageStrategy;
+import com.tweeddale.tweeter.services.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

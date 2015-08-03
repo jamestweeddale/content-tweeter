@@ -1,4 +1,4 @@
-package com.tweeddale.jtweeter;
+package com.tweeddale.tweeter;
 /**
  * Created by James on 7/3/2015.
  *
@@ -11,15 +11,12 @@ package com.tweeddale.jtweeter;
  * fetching content could be easily integrated and even swapped at runtime.
  */
 
-import com.tweeddale.jtweeter.contentstrategy.ContentFetchStrategy;
-import com.tweeddale.jtweeter.contentstrategy.StrategyCollection;
-import com.tweeddale.jtweeter.services.TweetService;
+import com.tweeddale.tweeter.contentstrategy.ContentFetchStrategy;
+import com.tweeddale.tweeter.contentstrategy.StrategyCollection;
+import com.tweeddale.tweeter.services.TweetService;
 import org.apache.logging.log4j.*;
 
 import twitter4j.StatusUpdate;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class ContentTweeter{
 

@@ -1,4 +1,4 @@
-package com.tweeddale.jtweeter.util;
+package com.tweeddale.tweeter.util;
 
 
 import org.apache.logging.log4j.LogManager;

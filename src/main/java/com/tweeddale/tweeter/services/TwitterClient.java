@@ -1,6 +1,6 @@
-package com.tweeddale.jtweeter.services;
+package com.tweeddale.tweeter.services;
 
-import com.tweeddale.jtweeter.util.ConfigWrapper;
+import com.tweeddale.tweeter.util.ConfigWrapper;
 import twitter4j.*;
 import twitter4j.auth.*;
 import org.apache.logging.log4j.LogManager;

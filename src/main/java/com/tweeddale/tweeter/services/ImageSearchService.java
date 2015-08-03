@@ -1,4 +1,4 @@
-package com.tweeddale.jtweeter.services;
+package com.tweeddale.tweeter.services;
 import java.util.List;
 /**
  * Created by James on 7/4/2015.

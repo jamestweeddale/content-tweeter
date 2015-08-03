@@ -1,11 +1,11 @@
-package com.tweeddale.jtweeter.contentstrategy;
+package com.tweeddale.tweeter.contentstrategy;
 
 import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import com.tweeddale.jtweeter.services.*;
-import com.tweeddale.jtweeter.util.*;
+import com.tweeddale.tweeter.services.*;
+import com.tweeddale.tweeter.util.*;
 import org.apache.logging.log4j.LogManager;
 import twitter4j.*;
 

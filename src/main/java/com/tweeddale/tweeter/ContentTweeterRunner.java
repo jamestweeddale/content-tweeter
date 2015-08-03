@@ -1,10 +1,8 @@
-package com.tweeddale.jtweeter;
+package com.tweeddale.tweeter;
 
-import com.tweeddale.jtweeter.util.ConfigWrapper;
+import com.tweeddale.tweeter.util.ConfigWrapper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import java.io.File;
 
 /**
  * Created by James on 7/18/2015.

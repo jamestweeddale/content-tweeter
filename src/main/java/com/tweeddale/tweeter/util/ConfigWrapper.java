@@ -1,4 +1,4 @@
-package com.tweeddale.jtweeter.util;
+package com.tweeddale.tweeter.util;
 
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.XMLConfiguration;
@@ -18,7 +18,7 @@ public class ConfigWrapper {
     public static XMLConfiguration getConfig() {
         try {
             if (appConfig == null) {
-                appConfig = new XMLConfiguration("/var/opt/jtweeter/jtweeter-config.xml");
+                appConfig = new XMLConfiguration("/var/opt/tweeter/tweeter-config.xml");
             }
         }catch(ConfigurationException e){
             e.printStackTrace();
