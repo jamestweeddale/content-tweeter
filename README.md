@@ -1,7 +1,7 @@
 # tweeter
 Integrates Java based services and APIs in a loosely coupled manner to use as sources of content for tweets. Flexible design allows new services and ContentFetchers to be added easily to provide new sources of tweet content.
 
-Currently available source of tweet content include random dictionary words, Google IMage search results, and Unix/Linux fortunes.
+Currently available source of tweet content include random dictionary words, Google Image search results, and Unix/Linux fortunes.
 
 The following APIs, libraries, and utilities are utilized to interface with remote services:
 - Twitter4J API for Twitter.
