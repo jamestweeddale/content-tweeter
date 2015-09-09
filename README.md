@@ -11,6 +11,6 @@ The following APIs, libraries, and utilities are utilized to interface with remo
 
 An implementation of this project is currently running, tweeting to Twitter as <a href="https://twitter.com/RandomTweetPony" target="_BLANK">@RandomTweetPony</a>. This implementation of ContentTweeter tweets random words, related images, and Linux fortunes at specified intervals.
 
-Project and all dependencies are compiled into a single jar file using Maven. The resulting jar can bein run at command line by simply running 'java -jar jtweeter.jar' provided the application configuration file is completed and in place. 
+Project and all dependencies are compiled into a single jar file using Maven. The resulting jar can be run at command line by simply running 'java -jar jtweeter.jar' provided the application configuration file is completed and in place. 
 
 Sample configuration file including some information for running an instance of the project is located in main/resources/sample-jtweeter-config.xml
