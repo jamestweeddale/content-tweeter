@@ -18,6 +18,7 @@
             <consumer-key><!--  consumer key here--></consumer-key>
         </twitter>
 
+        <!--Google Custom Search Engine key and CX. Obtained from Google CSE after creating a custom search -->
         <google-custom-search>
             <key></key>
             <cx></cx>

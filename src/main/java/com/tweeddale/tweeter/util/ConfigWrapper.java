@@ -19,6 +19,7 @@ public class ConfigWrapper {
     protected ConfigWrapper() {
     }
 
+    //todo: move path Strings into configuration file
     public static XMLConfiguration getConfig() {
 
         //if config object has not yet been created, load it
