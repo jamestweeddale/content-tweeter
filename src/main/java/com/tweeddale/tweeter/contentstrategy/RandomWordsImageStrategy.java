@@ -4,6 +4,8 @@ import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+
 import com.tweeddale.tweeter.services.*;
 import com.tweeddale.tweeter.util.*;
 import org.apache.logging.log4j.LogManager;
@@ -97,12 +99,17 @@ public class RandomWordsImageStrategy implements ContentFetchStrategy {
                 imgUrls = imageSearchService.search(randomWords);
             }
 
-            //try to download images until one works
-            File newFile = remoteFileGrabber.getFile(new URL(imgUrls.get(0)));
+            //pick a random image result and try to download it.
+            //Try to download images until one works
+            int numResults = imgUrls.size();
+            int selectedResultIdx = new Random().nextInt(numResults);
+            File newFile = remoteFileGrabber.getFile(new URL(imgUrls.get(selectedResultIdx)));
 
-            int i = 1;
-            while(newFile == null && i < imgUrls.size()){
-                newFile = remoteFileGrabber.getFile(new URL(imgUrls.get(i)));
+            int i = 0;
+            int maxTries = 10;
+            while(newFile == null || i > maxTries){
+                selectedResultIdx = new Random().nextInt(numResults);
+                newFile = remoteFileGrabber.getFile(new URL(imgUrls.get(selectedResultIdx)));
                 i++;
             }
 

@@ -40,7 +40,7 @@ public class Wordnik implements DictionaryService {
 
     /**
      * Fetches numWords random words from the Wordnik online dictionary
-     *
+     * todo: make corpusCount and dictionaryCount configurable
      * @param numWords  the number of random words to fetch
      * @return a list of random words containing numWords items
      * @throws Exception
