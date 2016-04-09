@@ -59,8 +59,6 @@ public class GoogleImageSearch implements ImageSearchService {
             String queryTerms = URLEncoder.encode(searchStr.trim(), "UTF-8");
             URL url = new URL(completeSearchUrl + queryTerms);
 
-            logger.debug("Search String: " + url.toString());
-
             URLConnection connection = url.openConnection();
 
             String line;
