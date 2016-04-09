@@ -5,29 +5,61 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.tweeddale.tweeter.util.ConfigWrapper;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.json.*;
 
 /**
  * Created by James on 7/3/2015.
  *
- * This implementation of ImageSearchService queries Google Image Search via an HTTP request.
+ * This implementation of ImageSearchService queries Google Custom Search API via an HTTP request.
  */
 public class GoogleImageSearch implements ImageSearchService {
+    private static final Logger logger = LogManager.getLogger(GoogleImageSearch.class);
 
-    private final String searchUrlStr = "https://ajax.googleapis.com/ajax/services/search/images?v=1.0&q=";
+    private String googleApiKey = null;
+    private String googleApiCx = null;
+    private final String searchUrlStrTemplate = "https://www.googleapis.com/customsearch/v1?key=%s&cx=%s&searchType=image&q=";
+
+    public GoogleImageSearch(){
+        this(null, null);
+    }
+
+    public GoogleImageSearch(String googleApiKey, String googleApiCx) {
+        this.googleApiKey = googleApiKey;
+        this.googleApiCx = googleApiCx;
+
+        if(googleApiKey == null){
+            this.googleApiKey = ConfigWrapper.getConfig().getString("services.google-custom-search.key");
+        }
+
+        if(googleApiCx == null){
+            this.googleApiCx = ConfigWrapper.getConfig().getString("services.google-custom-search.cx");
+        }
+    }
+
 
     /**
      * Performs a request to Google Image search using the passed-in search string. Results are returned from the service
      * in a JSON object which is parsed to store only the image URLS in a List.
      *
      * @param searchStr   The search string used to query for a related image
-     * @return a List of URL strings, each pointing to a related image result from the Googkle image search
+     * @return a List of URL strings, each pointing to a related image result from the Google image search
      */
     public List<String> search(String searchStr) {
+        if(this.googleApiKey == null || this.googleApiCx == null){
+            throw new IllegalStateException("API Key and CX must be set before search can be performed.");
+        }
+
         StringBuilder builder = new StringBuilder();
 
         try {
-            URL url = new URL(this.searchUrlStr + URLEncoder.encode(searchStr.trim(), "UTF-8"));
+            String completeSearchUrl = searchStr.format(searchUrlStrTemplate, googleApiKey, googleApiCx);
+            String queryTerms = URLEncoder.encode(searchStr.trim(), "UTF-8");
+            URL url = new URL(completeSearchUrl + queryTerms);
+
+            logger.debug("Search String: " + url.toString());
 
             URLConnection connection = url.openConnection();
 
@@ -53,11 +85,11 @@ public class GoogleImageSearch implements ImageSearchService {
 
         ArrayList resultsList = new ArrayList();
 
-        JSONArray jsonResultsArr = new JSONObject(json).getJSONObject("responseData").getJSONArray("results");
+        JSONArray jsonResultsArr = new JSONObject(json).getJSONArray("items");
 
         for(int i =0; i < jsonResultsArr.length(); i++) {
             JSONObject result = jsonResultsArr.getJSONObject(i);
-            String imageUrl = result.getString("url");
+            String imageUrl = result.getString("link");
             resultsList.add(imageUrl);
         }
 

@@ -17,5 +17,10 @@
             <consumer-secret><!-- consumer secret here --></consumer-secret>
             <consumer-key><!--  consumer key here--></consumer-key>
         </twitter>
+
+        <google-custom-search>
+            <key></key>
+            <cx></cx>
+        </google-custom-search>
     </services>
 </config>
