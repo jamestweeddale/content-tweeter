@@ -22,7 +22,7 @@ public class GoogleImageSearch implements ImageSearchService {
     private String googleApiCx = null;
     private final String searchUrlStrTemplate = "https://www.googleapis.com/customsearch/v1?key=%s&cx=%s&searchType=image&q=";
 
-    public GoogleImageSearch(){
+    public GoogleImageSearch() {
         this(null, null);
     }
 
@@ -30,11 +30,11 @@ public class GoogleImageSearch implements ImageSearchService {
         this.googleApiKey = googleApiKey;
         this.googleApiCx = googleApiCx;
 
-        if(googleApiKey == null){
+        if (googleApiKey == null) {
             this.googleApiKey = ConfigWrapper.getConfig().getString("services.google-custom-search.key");
         }
 
-        if(googleApiCx == null){
+        if (googleApiCx == null) {
             this.googleApiCx = ConfigWrapper.getConfig().getString("services.google-custom-search.cx");
         }
     }
@@ -44,14 +44,15 @@ public class GoogleImageSearch implements ImageSearchService {
      * Performs a request to Google Image search using the passed-in search string. Results are returned from the service
      * in a JSON object which is parsed to store only the image URLS in a List.
      *
-     * @param searchStr   The search string used to query for a related image
+     * @param searchStr The search string used to query for a related image
      * @return a List of URL strings, each pointing to a related image result from the Google image search
      */
     public List<String> search(String searchStr) {
-        if(this.googleApiKey == null || this.googleApiCx == null){
+        if (this.googleApiKey == null || this.googleApiCx == null) {
             throw new IllegalStateException("API Key and CX must be set before search can be performed.");
         }
 
+        List<String> imageUrls = new ArrayList<String>();
         StringBuilder builder = new StringBuilder();
 
         try {
@@ -67,28 +68,36 @@ public class GoogleImageSearch implements ImageSearchService {
                 builder.append(line);
             }
 
-        }catch(Exception e){
+            imageUrls = parseOutResultImageUrls(builder.toString());
+
+        } catch (Exception e) {
+            logger.warn("Exception occurred while obtaining image search results");
             e.printStackTrace();
         }
 
-        return parseOutResultImageUrls(builder.toString());
+
+        return imageUrls;
     }
 
     /**
-     *
      * @param json the JSON object returned by the Google image search performed by the search() method.
      * @return List of strings, each one a URL from each search result in the JSON object that was passed-in
      */
-    private List<String> parseOutResultImageUrls(String json){
+    private List<String> parseOutResultImageUrls(String json) {
 
-        ArrayList resultsList = new ArrayList();
+        ArrayList<String> resultsList = new ArrayList<String>();
 
-        JSONArray jsonResultsArr = new JSONObject(json).getJSONArray("items");
+        try {
+            JSONArray jsonResultsArr = new JSONObject(json).getJSONArray("items");
 
-        for(int i =0; i < jsonResultsArr.length(); i++) {
-            JSONObject result = jsonResultsArr.getJSONObject(i);
-            String imageUrl = result.getString("link");
-            resultsList.add(imageUrl);
+            for (int i = 0; i < jsonResultsArr.length(); i++) {
+                JSONObject result = jsonResultsArr.getJSONObject(i);
+                String imageUrl = result.getString("link");
+                resultsList.add(imageUrl);
+            }
+        }catch(Exception e){
+            logger.warn("Exception occurred while parsing image result JSON");
+            e.printStackTrace();
         }
 
         return resultsList;

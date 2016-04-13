@@ -1,15 +1,17 @@
 package com.tweeddale.tweeter.contentstrategy;
 
+import com.tweeddale.tweeter.services.DictionaryService;
+import com.tweeddale.tweeter.services.ImageSearchService;
+import com.tweeddale.tweeter.util.ConfigWrapper;
+import com.tweeddale.tweeter.util.RemoteFileGrabber;
+import org.apache.logging.log4j.LogManager;
+import twitter4j.StatusUpdate;
+
 import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
-import com.tweeddale.tweeter.services.*;
-import com.tweeddale.tweeter.util.*;
-import org.apache.logging.log4j.LogManager;
-import twitter4j.*;
 
 /**
  * Created by James on 7/4/2015.
@@ -24,6 +26,7 @@ public class RandomWordsImageStrategy implements ContentFetchStrategy {
 
     private DictionaryService dictionaryService;
     private ImageSearchService imageSearchService;
+    private final int MAX_NUM_SEARCH_RETRIES = 3;
 
     public RandomWordsImageStrategy(DictionaryService dictionaryService, ImageSearchService imageSearchService, int numWords, boolean useWordOfTheDay) {
         this.dictionaryService = dictionaryService;
@@ -83,6 +86,7 @@ public class RandomWordsImageStrategy implements ContentFetchStrategy {
         String tweetableString = "";
         StatusUpdate status = null;
         RemoteFileGrabber remoteFileGrabber= new RemoteFileGrabber();
+        File newFile = null;
 
         try {
 
@@ -94,23 +98,34 @@ public class RandomWordsImageStrategy implements ContentFetchStrategy {
 
             //get random words and search for related image until we get one
             List<String> imgUrls = new ArrayList<String>();
-            while(imgUrls.isEmpty()){
+            int numTries = 0;
+            while(imgUrls.isEmpty() && (numTries < MAX_NUM_SEARCH_RETRIES)){
                 randomWords =  this.fetchRandomWords();
                 imgUrls = imageSearchService.search(randomWords);
+                numTries++;
             }
 
-            //pick a random image result and try to download it.
-            //Try to download images until one works
-            int numResults = imgUrls.size();
-            int selectedResultIdx = new Random().nextInt(numResults);
-            File newFile = remoteFileGrabber.getFile(new URL(imgUrls.get(selectedResultIdx)));
+            if(imgUrls != null && imgUrls.size() > 0) {
+                //pick a random image from the results result and try to download it.
+                //Try to download images until one works
+                int numResults = imgUrls.size();
+                int i = 0;
+                int maxTries = 10;
+                int selectedResultIdx = 0;
 
-            int i = 0;
-            int maxTries = 10;
-            while(newFile == null || i > maxTries){
-                selectedResultIdx = new Random().nextInt(numResults);
-                newFile = remoteFileGrabber.getFile(new URL(imgUrls.get(selectedResultIdx)));
-                i++;
+                while (newFile == null || i > maxTries) {
+                    try {
+                        selectedResultIdx = new Random().nextInt(numResults);
+                        newFile = remoteFileGrabber.getFile(new URL(imgUrls.get(selectedResultIdx)));
+                    } catch (Exception e) {
+                        logger.warn("Exception occurred while fetching image. Retrying.");
+                    }
+
+                    i++;
+                }
+            }else{
+                logger.warn("Using default no-results-image");
+                newFile = new File(ConfigWrapper.getConfig().getString("no-results-image"));
             }
 
             tweetableString = wordOfTheDay + " " + randomWords;

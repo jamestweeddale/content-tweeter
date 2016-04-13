@@ -52,8 +52,7 @@ public class ContentTweeter{
         StatusUpdate tweetableStatus = contentFetchStrategies.getRandomStrategy().getTweetableStatus();
         tweetService.send(tweetableStatus);
 
-        logger.debug("Tweeted: " + tweetableStatus);
-        System.out.println("Just tweeted: " + tweetableStatus.getStatus());
+        logger.debug("Just tweeted: " + tweetableStatus.getStatus());
     }
 
     /**

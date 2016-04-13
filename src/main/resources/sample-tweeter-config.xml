@@ -3,7 +3,7 @@
 
     <downloads-dir>C:\tweetpony\fetchedImages</downloads-dir>
     <num-words>3</num-words>
-
+    <no-results-image>C:\tweetpony\fetchedImages\noResults.png</no-results-image>
     <services>
         <!-- Wordnik API key can be obtained from http://developer.wordnik.com -->
         <wordnik>
