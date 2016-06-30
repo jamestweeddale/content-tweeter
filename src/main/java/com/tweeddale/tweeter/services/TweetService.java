@@ -1,5 +1,8 @@
 package com.tweeddale.tweeter.services;
+import twitter4j.Status;
 import twitter4j.StatusUpdate;
+
+import java.util.List;
 
 /**
  * Created by James on 7/4/2015.
@@ -9,4 +12,6 @@ import twitter4j.StatusUpdate;
 public interface TweetService{
 
     public void send(StatusUpdate message);
+
+    public List<Status> getMentions(int secondsAgo);
 }
