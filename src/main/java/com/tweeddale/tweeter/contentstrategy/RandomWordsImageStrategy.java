@@ -113,7 +113,7 @@ public class RandomWordsImageStrategy implements ContentFetchStrategy {
                 int maxTries = 10;
                 int selectedResultIdx = 0;
 
-                while (newFile == null || i > maxTries) {
+                while (newFile == null && (i < maxTries)) {
                     try {
                         selectedResultIdx = new Random().nextInt(numResults);
                         newFile = remoteFileGrabber.getFile(new URL(imgUrls.get(selectedResultIdx)));
