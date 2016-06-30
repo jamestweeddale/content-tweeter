@@ -27,7 +27,6 @@ public class RandomWordsImageStrategy implements ContentFetchStrategy {
     private DictionaryService dictionaryService;
     private ImageSearchService imageSearchService;
     private final int MAX_NUM_SEARCH_RETRIES = 3;
-    private final int MAX_NUM_IMAGE_FETCH_RETRIES = 10;
 
     public RandomWordsImageStrategy(DictionaryService dictionaryService, ImageSearchService imageSearchService, int numWords, boolean useWordOfTheDay) {
         this.dictionaryService = dictionaryService;
@@ -111,9 +110,10 @@ public class RandomWordsImageStrategy implements ContentFetchStrategy {
                 //Try to download images until one works
                 int numResults = imgUrls.size();
                 int i = 0;
+                int maxTries = 10;
                 int selectedResultIdx = 0;
 
-                while (newFile == null && (i < MAX_NUM_IMAGE_FETCH_RETRIES)) {
+                while (newFile == null && (i < maxTries)) {
                     try {
                         selectedResultIdx = new Random().nextInt(numResults);
                         newFile = remoteFileGrabber.getFile(new URL(imgUrls.get(selectedResultIdx)));

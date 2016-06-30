@@ -6,11 +6,6 @@ import twitter4j.auth.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-
 
 /**
  * Created by James on 7/3/2015.
@@ -60,34 +55,6 @@ public class TwitterClient implements TweetService {
 
         } catch (TwitterException e) {
             e.printStackTrace();
-        }
-    }
-
-    /**
-     * Gets all mentions from the last n seconds. If operation fails, returns an empty list.
-     * @return list containing all mentions from the last n seconds.
-     */
-    public List<Status> getMentions(int secondsAgo) {
-
-        List<Status> recentMentions = new ArrayList();
-
-        try {
-            List<Status> allMentions = twitterConnection.getMentionsTimeline();
-            Date since = new Date();
-            since.setSeconds(new Date().getSeconds() - secondsAgo);
-
-            for(Status status : allMentions){
-                if(status.getCreatedAt().after(since)){
-                    recentMentions.add(status);
-                }
-            }
-
-            return recentMentions;
-
-        }catch(TwitterException e){
-            e.printStackTrace();
-            logger.debug("Failed to getMentions");
-            return new ArrayList<Status>();
         }
     }
 
